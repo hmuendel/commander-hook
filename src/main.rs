@@ -20,7 +20,7 @@ async fn main() -> std::io::Result<()> {
         process::exit(1);
     }
     // load TLS key/cert files
-    let cert_path = env::var("CMD_HOOK_KEY").unwrap_or_else(|_| {
+    let cert_path = env::var("CMD_HOOK_CERT").unwrap_or_else(|_| {
         println!(
             "Using cert at:    ./cert.pem,                        set CMD_HOOK_CERT to change"
         );
@@ -28,9 +28,7 @@ async fn main() -> std::io::Result<()> {
     });
     let cert_file = &mut BufReader::new(File::open(cert_path).expect("Could not open cert file"));
     let key_path = env::var("CMD_HOOK_KEY").unwrap_or_else(|_| {
-        println!(
-            "Using key at:     ./key.pem,                         set CMD_HOOK_KEY to change"
-        );
+        println!("Using key at:     ./key.pem,                         set CMD_HOOK_KEY to change");
         "key.pem".to_string()
     });
     let key_file = &mut BufReader::new(File::open(key_path).expect("Could not open key file"));
